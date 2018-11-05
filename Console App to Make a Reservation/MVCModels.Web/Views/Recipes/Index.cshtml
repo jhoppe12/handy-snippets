@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MVCModels.Web.Models.Recipe>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>All Recipes</h2>
+<div class="recipies">
+
+    @{double stars = 0;}
+    @foreach (var item in Model)
+    {
+        <div id="home_recipies">
+            <a asp-controller="Recipes" asp-action="Detail" asp-route-id="@item.Id">
+                <img id="clickPicture" src="~/images/@item.ImageName" alt="Dish" />
+            </a>
+            @{stars = Math.Ceiling(item.AverageRating);}
+
+
+            <table id="table_color">
+                <tr>
+                    <td>
+                        <div id="model_table"> @Html.DisplayFor(modelItem => item.Name)</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="star-rating" src="~/images/@stars-star.png" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div id="model_ing"> @Html.DisplayFor(modelItem => item.Ingredients.Count) ingredients</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>

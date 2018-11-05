@@ -1,0 +1,54 @@
+﻿
+@model MVCModels.Web.Models.Recipe
+
+
+@{
+    ViewData["Title"] = "Recipe";
+    int n = Convert.ToInt32(ViewData["recipe"]);
+}
+
+<h2>Recipe Detail</h2>
+<div class="detail">
+    <div id="pic">
+        <img id="picture" src="~/images/@Model.ImageName" />
+    </div>
+
+    <div id="nextToPic">
+        <p class="name">
+            @Html.DisplayFor(modelItem => Model.Name)
+        </p>
+        <p>
+            @Html.DisplayFor(modelItem => Model.RecipeType)
+        </p>
+        <p><strong>Cook Time </strong>@Html.DisplayFor(modelItem => Model.CookTimeInMinutes) minutes</p>
+        <p>
+            @Html.DisplayFor(modelItem => Model.Description)
+        </p>
+
+    </div>
+
+    <div id="info">
+        <p class="big">Ingredients</p>
+        <ul>
+            @foreach (Ingredient ingred in Model.Ingredients)
+            {
+                <li>@ingred.Quantity @ingred.Name</li>
+            }
+        </ul>
+
+        <p class="big">Preparation</p>
+        <ol>
+            @foreach (string step in Model.PreparationSteps)
+            {
+                <li>@step</li>
+            }
+        </ol>
+    </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MVCModels.Web.Models.Recipe>
+
+@{
+    ViewData["Title"] = "Recipe Listing";
+}
+
+<h2>All Recipes</h2>
+<div class="table">
+
+    @{double stars = 0;
+        int count = 0;}
+
+    @foreach (var item in Model)
+    {
+        <div id="label">
+            @if (count == 0)
+            {
+                <p id="label">
+                    Name <br />
+                    Type <br />
+                    Cook Time <br />
+                    Ingredients <br />
+                    Rating <br />
+                </p>
+
+            }
+        </div>
+        <div id="table_name">
+            <a asp-controller="Recipes" asp-action="Detail" asp-route-id="@item.Id">
+                <img id="clickPicture" src="~/images/@item.ImageName" alt="Dish" />
+            </a>
+            @{stars = Math.Ceiling(item.AverageRating);}
+
+            <table>
+                <tr id="overflow"><td>@Html.DisplayFor(modelItem => item.Name)</td></tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RecipeType)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CookTimeInMinutes) min
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ingredients.Count) ingredients
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="star-rating" src="~/images/@stars-star.png" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        count++;
+    }
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
