@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Capstone.Web.Models.SurveyModel>
+
+@{
+    ViewData["Title"] = "National Park Geek";
+}
+
+<h2></h2>
+<h2>Top Rated Parks</h2>
+<p class="notification"> @Html.Raw(TempData["msg"])</p>
+
+<p id="post-new">
+    <a asp-action="SubmitSurvey">Take a Survey</a>
+</p>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            
+            <tr>
+                <td>
+                    
+                    @*<img class="park_Pic" src="~/images/parks/@(item.ParkCode).jpg" style=width:100%; />
+                    
+                    <img src="~/images/parks/@Html.DisplayForModel(item.ParkCode)" />*@
+                    
+                    <strong>@Html.DisplayFor(modelItem => item.ParkName)</strong>
+
+                    <strong>Survey Count: @Html.DisplayFor(modelItem => item.ParkCount)</strong>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

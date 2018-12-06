@@ -1,0 +1,183 @@
+﻿
+@model Capstone.Web.Models.ParkDetailViewModel
+
+@{
+    ViewData["Title"] = "National Park Geek";
+}
+
+<div class="all">
+
+    @foreach (var item in Model.GetParks)
+    {
+    <div id="detail_image">
+        <a asp-controller="Survey" asp-action="SubmitSurvey">
+            <img src="~/images/parks/@(item.ParkCode.ToLower()).jpg" style=width:100%; />
+            </a>
+    </div>
+        <div id="next_to_pic">
+            <h2><strong> @Html.DisplayFor(modelItem => item.ParkName)</strong></h2>
+
+            <p><strong> State:</strong> @Html.DisplayFor(modelItem => item.State)</p>
+            <p>@Html.DisplayFor(modelItem => item.ParkDescription)</p>
+        </div>
+        <p>
+            <i>
+                @Html.DisplayFor(modelItem => item.InspirationalQuote)
+            </i>
+
+            ~@Html.DisplayFor(modelItem => item.InspirationalQuoteSource)
+        </p>
+
+    }
+    <div id="under_pic">
+        <table class="park_detail">
+
+            @foreach (var item in Model.GetParks)
+            {
+                <tr>
+                    <h2>Park Facts</h2>
+                </tr>
+                <td>
+                    <strong> Park Acreage:</strong> @Html.DisplayFor(modelItem => item.Acreage)
+                </td>
+                <td>
+                    <strong>Park Elevation:</strong>  @Html.DisplayFor(modelItem => item.Elevation)
+                </td>
+
+                <td>
+
+                    <strong> Miles Of Trail:</strong> @Html.DisplayFor(modelItem => item.MilesOfTrail)
+                </td>
+                <td>
+                    <strong> Camp Sites:</strong> @Html.DisplayFor(modelItem => item.NumberOfCampSites)
+                </td>
+
+                <td>
+                    <strong> Climate:</strong> @Html.DisplayFor(modelItem => item.Climate)
+                </td>
+                <td>
+                    <strong> Founded:</strong> @Html.DisplayFor(modelItem => item.YearFounded)
+                </td>
+                <td>
+                    <strong> Annual Visitors:</strong> @Html.DisplayFor(modelItem => item.AnnualVisitorCount)
+                </td>
+                <td>
+                    <strong> Entry Fee:</strong> $@Html.DisplayFor(modelItem => item.EntryFee)
+                </td>
+                <td>
+                    <strong> Animal Species:</strong> @Html.DisplayFor(modelItem => item.NumberOfAnimalSpecies)
+                </td>
+                <td />
+
+            }
+
+        </table>
+    </div>
+    </br>
+
+
+    <div id="weather_info" class="weather_info">
+        <div id="weather_header">5 Day Forecast</div>
+
+        @foreach (var item in Model.GetForcast)
+        {
+            <div class="forecast" id="high_low+@item.FiveDay" style="border:solid; border-radius: 25px;">
+
+
+                <strong><h3> Day: @Html.DisplayFor(modelItem => item.FiveDay)</h3></strong>
+                @if (@Model.TempSetter.Contains("F") || @Model.TempSetter == null)
+                {
+                    <p><strong>Daily Low:</strong>   @Html.DisplayFor(modelItem => item.Low)&#176;F </p>
+                    <p><strong>Daily High:</strong>  @Html.DisplayFor(modelItem => item.High)&#176;F</p>
+
+                }
+                else
+                {
+                    <p>
+                        <strong>Daily Low:</strong>   @Html.DisplayFor(modelItem => item.CelciusLow)&#176;C
+                    </p>
+                    <p>  <strong>Daily High:</strong> @Html.DisplayFor(modelItem => item.CelciusHigh)&#176;C</p>
+
+                }
+
+                <img id="weatherlogo" src="~/images/weather/@(item.Forecast).png" />
+                @if (@item.Forecast.Contains("snow"))
+                {
+                    <div id="forcast_format">
+                        <p>   @Html.DisplayFor(modelItem => item.Forecast)</p>
+                    </div>
+                    <p>Please pack snowshoes.</p>
+                }
+                else if (@item.Forecast.Contains("rain"))
+                {
+                    <div id="forcast_format">
+                        <p>  @Html.DisplayFor(modelItem => item.Forecast)</p>
+                    </div>
+                    <p>Please pack rain gear and wear waterproof shoes.</p>
+                }
+                else if (@item.Forecast.Contains("thunderstorms"))
+                {
+                    <div id="forcast_format">
+                        <p> @Html.DisplayFor(modelItem => item.Forecast)</p>
+                    </div>
+                    <p>
+                        Please seek shelter and avoid hiking on
+                        exposed ridges.
+                    </p>
+                }
+                else if (@item.Forecast.Contains("sun"))
+                {
+                    <div id="forcast_format">
+                        <p>  @Html.DisplayFor(modelItem => item.Forecast)</p>
+                    </div>
+                    <p>Please pack sunblock.</p>
+                }
+                else
+                {<div id="forcast_format">
+                        <p>   @Html.DisplayFor(modelItem => item.Forecast)</p>
+                    </div>
+                }
+
+                @if (@item.High > 75)
+                {
+                    <p> <i>Please bring an extra gallon of water.</i></p>
+                }
+                else if (@item.High - item.Low > 20)
+                {
+                    <p><i> Please wear breathable layers.</i></p>
+                }
+                else if (@item.Low < 20)
+                {
+                    <p><i style="color:darkred;"> *Exposure to frigid temperatures*</i></p>
+                }
+                else
+                {
+
+                }
+            </div>
+        }
+    </div>
+
+
+    <div id="weatherradios">
+        <form asp-action="SaveTemp" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TempSetter" class="control-label"></label> </br>
+                <input type="radio" asp-for="TempSetter" value="F" id="tempsetter" name="tempsetter" /><label>&nbsp; Fahrenheit </label>&nbsp;&nbsp;
+                <input type="radio" asp-for="TempSetter" value="C" id="tempsetter" name="tempsetter" /><label>&nbsp; Celcius </label>
+                @foreach (var item in Model.GetParks)
+                {
+                    <input type="hidden" name="id" value="@item.ParkCode" />
+                }
+                <span asp-validation-for="TempSetter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save Setting" class="btn btn-default" />
+            </div>
+        </form>
+
+    </div>
+
+
+

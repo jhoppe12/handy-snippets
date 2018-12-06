@@ -1,0 +1,44 @@
+﻿@model Capstone.Web.Models.SurveyModel
+
+
+<hr />
+@*@Html.DropDownListFor(m => m.ParkPicks, new SelectList(Model.ParkPicks, "parkCode", "parkName"), " ")*@
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SubmitSurvey" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ParkCode" class="control-label"></label>
+                <select asp-for="ParkCode" class="form-control" asp-items="SurveyModel.nationalParks"></select>
+                <span asp-validation-for="ParkCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityLevel" class="control-label"></label>
+                <input type="radio" asp-for="ActivityLevel" value="Sedentary" /><label> Sedentary </label>
+                <input type="radio" asp-for="ActivityLevel" value="Inactive" /><label> Inactive </label>
+                <input type="radio" asp-for="ActivityLevel" value="Active" /><label> Active </label>
+                <input type="radio" asp-for="ActivityLevel" value="ExtremelyActive" /><label> Extremely Active </label>
+                <span asp-validation-for="ActivityLevel" class="text-danger"></span>
+            </div>
+
+            <div class="submit">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

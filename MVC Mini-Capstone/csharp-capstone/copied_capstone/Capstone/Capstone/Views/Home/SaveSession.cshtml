@@ -1,0 +1,114 @@
+﻿
+@model Capstone.Web.Models.ParkDetailViewModel
+
+
+
+<section class="all">
+    <section class="park_detail">
+        @foreach (var item in Model.GetParks)
+        {
+            <div class="centered title">
+                <img id="detail_picture" src="~/images/parks/@(item.ParkCode.ToLower()).jpg" style=width:50%; />
+                <h2><strong> @Html.DisplayFor(modelItem => item.ParkName)</strong></h2>
+                @Html.DisplayFor(modelItem => item.ParkDescription)
+                <p>
+                    <i>
+                        @Html.DisplayFor(modelItem => item.InspirationalQuote)
+                    </i>
+
+                    ~@Html.DisplayFor(modelItem => item.InspirationalQuoteSource)
+                </p>
+            </div>
+        }
+
+        <table id="table1">
+            <tbody>
+                @foreach (var item in Model.GetParks)
+                {
+                    <tr>
+                        <h3>Park Facts</h3>
+                        <strong>  Park State:</strong> @Html.DisplayFor(modelItem => item.State)
+                    </tr>
+                    <tr>
+                        <strong> Park Acreage:</strong> @Html.DisplayFor(modelItem => item.Acreage)
+                    </tr>
+                    <tr>
+                        <strong>Park Elevation:</strong>  @Html.DisplayFor(modelItem => item.Elevation)
+                    </tr>
+                    <tr>
+                        <strong> Miles Of Trail:</strong> @Html.DisplayFor(modelItem => item.MilesOfTrail)
+
+                        <strong> Camp Sites:</strong>  @Html.DisplayFor(modelItem => item.NumberOfCampSites)
+
+                        <strong> Climate:</strong> @Html.DisplayFor(modelItem => item.Climate)
+
+                        <strong> Founded:</strong> @Html.DisplayFor(modelItem => item.YearFounded)
+
+                        <strong> Annual Visitors:</strong>  @Html.DisplayFor(modelItem => item.AnnualVisitorCount)
+
+                        <strong> Entry Fee:</strong> $@Html.DisplayFor(modelItem => item.EntryFee)
+
+                        <strong> Animal Species:</strong>  @Html.DisplayFor(modelItem => item.NumberOfAnimalSpecies)
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </section>
+
+    <form asp-action="SaveTemp" method="get">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="TempSetter" class="control-label"></label>
+            <input type="radio" asp-for="TempSetter" value="F" id="tempsetter" name="tempsetter" /><label> Fahrenheit </label>
+            <input type="radio" asp-for="TempSetter" value="C" id="tempsetter" name="tempsetter"/><label> Celcius </label>
+            @foreach(var item in Model.GetParks){   
+            <input type="hidden" id="@item.ParkCode" name="id" />
+            }
+            <span asp-validation-for="TempSetter" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save Setting" class="btn btn-default" />
+        </div>
+    </form>
+
+    <h2 class="weatherheader">5 Day Weather Forcast</h2>
+    <table>
+        @foreach (var item in Model.GetForcast)
+        {
+            <tr>
+                <td>
+                    <strong>Upcoming Day:</strong>  @Html.DisplayFor(modelItem => item.FiveDay)
+                </td>
+                <td>
+                    @if (@Model.TempSetter.Contains("F")|| @Model.TempSetter==null)
+                    {<p>
+                            <strong>Daily Low:</strong>   @Html.DisplayFor(modelItem => item.Low)&#176;F
+                        </p>
+                        <p>
+                            <strong>Daily High:</strong>  @Html.DisplayFor(modelItem => item.High)&#176;F
+                        </p>
+
+                    }
+                    else
+                    {
+                        <p>
+                            <strong>Daily Low:</strong>   @Html.DisplayFor(modelItem => item.CelciusLow)&#176;C
+                        </p>
+                        <p>  <strong>Daily High:</strong> @Html.DisplayFor(modelItem => item.CelciusHigh)&#176;C</p>
+
+                    }
+                </td>
+                <td>
+                    <img id="weatherlogo" src="~/images/weather/@(item.Forecast).png" />
+                    @Html.DisplayFor(modelItem => item.Forecast)
+                </td>
+
+
+            </tr>
+        }
+    </table>
+
+</section>
+

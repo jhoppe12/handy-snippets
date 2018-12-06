@@ -1,0 +1,208 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 100px;
+    font-family: 'Arial Rounded MT';
+}
+
+img {
+    opacity: 1;
+    transition: 0.3s;
+    border-radius: 5%;
+}
+    img:hover {
+        opacity: 0.6;
+    }
+
+.section {
+    display: grid;
+}
+
+#logo {
+    width: 10%;
+}
+
+.logo_background {
+    background-color: white;
+}
+
+#weatherlogo {
+    width: 100px;
+    height: auto;
+}
+
+#forcast_format {
+    text-transform: capitalize;
+    font-weight: bold;
+    color: #9E4A09;
+    font-size:larger;
+}
+
+
+table.park_detail td {
+    display: grid;
+    column-gap: 50px;
+    color: #36486b;
+}
+
+
+#weatherradios {   
+    color: #618685;
+}
+
+h2.weatherheader {
+    text-align: center;
+}
+
+tr {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
+}
+td{
+    padding: 15px;
+}
+
+.forecast{
+    padding: 15px;
+}
+
+.all {
+    display: grid;
+    grid-template-columns: 300px 10px 100px 50px;
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 1em;
+    font-family: 'Arial Rounded MT';
+}
+
+
+    .all#detail_image:nth-of-type(5) {
+        position: absolute;
+        order: 1;
+    }
+    .all#weather_header:nth-of-type(6){
+        position:absolute;
+        order:4;
+    }
+
+    .all#next_to_pic:nth-of-type(1) {
+        position: absolute;
+        order:2;
+    }
+
+    .all#under_pic:nth-of-type(2) {
+        position: absolute;
+        order: 3;
+        
+    }
+
+    .all#weatherradios:nth-of-type(3) {
+        position: absolute;
+        order: 6;
+    }
+
+.all#weather_info:nth-of-type(4) {
+    position: absolute;
+    order: 2;
+    
+}
+#next_to_pic{
+    grid-column:span 4/auto;
+}
+#under_pic {
+    grid-column: span 5/auto;
+    padding-left: 20px;
+}
+#weather_info {
+    grid-column: span 2/auto;
+    display:inline-grid;
+}
+#weatherradios {
+    grid-column: 1;
+    grid-row:4;
+    padding-top:15%;
+}
+
+#weatherradios.control-label {
+    font-size:larger;
+}
+#weather_header {
+    grid-column: span 8/auto;
+    font-weight: bold;
+    text-align: center;
+    font-size: xx-large;
+    background-color: #84892E;
+    border-radius: 25px;
+    color: #192637;
+}
+.weather_info {
+    display: grid;
+    grid-template-areas: "a a a a a";
+    display: grid;
+    /*grid-template-columns: repeat(8, 1fr);*/
+    grid-gap: 10px;
+    grid-row: auto;
+    align-items: flex-start;
+    
+}
+
+    .weather_info#high_low {
+       grid-area: a;
+    }
+ 
+#high_low{
+    grid-column:1/1;
+}
+
+
+
+
+.indexParkLayout {
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-template-rows: 40px 40px 200px;
+    grid-template-areas: "a b" "a c" "a d";
+    padding: 20px;
+}
+
+.park_Pic {
+    grid-area: a;
+    padding: 25px;
+    
+}
+
+.park_Name {
+    grid-area: b;
+    padding-top: 5px;
+}
+
+.park_Info_State {
+    grid-area: c;
+    padding-top: 10px;
+}
+
+.park_Info_Description {
+    grid-area: d;
+}
+
+.survey_page {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1em;
+    font-family: 'Arial Rounded MT';
+}
+
+#next_to_survey {
+    color: #36486b;
+    font-size:larger;
+}
+

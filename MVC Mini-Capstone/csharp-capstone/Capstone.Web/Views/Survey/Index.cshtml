@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Capstone.Web.Models.SurveyModel>
+
+@{
+    ViewData["Title"] = "National Park Geek";
+}
+
+<h2></h2>
+<h2>Top Rated Parks</h2>
+<p class="notification"> @Html.Raw(TempData["msg"])</p>
+
+
+
+<div class="survey_page">
+
+    @foreach (var item in Model)
+    {
+
+
+        <div id="survey_image">
+            <a asp-controller="Home" asp-action="Detail" asp-route-id="@item.ParkCode">
+                <img src="~/images/parks/@(item.ParkCode.ToLower()).jpg" />
+            </a>
+        </div>
+        <div id="next_to_survey">
+            <h2><strong>@Html.DisplayFor(modelItem => item.ParkName)</strong></h2>
+            <h3><p><strong>Survey Count: @Html.DisplayFor(modelItem => item.ParkCount)</strong></p></h3>
+            <p id="post-new">
+                <a asp-action="SubmitSurvey"> Click Here to Take a Survey on @Html.DisplayFor(modelItem => item.ParkName)</a>.
+            </p>
+            <p> Click on the pictures to see its details.</p>
+
+        </div>
+       
+
+    }
+
+</div>
+
+
